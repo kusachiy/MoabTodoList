@@ -28,7 +28,12 @@
             v-model="item.name"
             @blur="renameNode(item)"
           ></v-text-field>
-          <strong v-else style="font-size: 24px">{{ item.name }}</strong>
+          <strong
+            v-else
+            :class="{ isActive: selection.includes(item.id) }"
+            style="font-size: 24px"
+            >{{ item.name }}</strong
+          >
         </template>
         <template v-slot:append="{ item }">
           <v-btn icon color="pink" @click="createNode(item)">
@@ -44,7 +49,7 @@
       </v-treeview>
     </v-row>
     <v-alert
-      style="margin-top: 20px;"
+      style="margin-top: 20px"
       :value="alert"
       color="pink"
       dark
@@ -137,3 +142,14 @@ export default {
   },
 };
 </script>
+<style scoped>
+.isActive::before {
+  content: "";
+  border-bottom: 2px solid red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+}
+</style>
